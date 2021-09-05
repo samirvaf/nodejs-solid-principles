@@ -1,3 +1,4 @@
+import { AppError } from "../../../../errors/AppError";
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -13,7 +14,7 @@ class CreateUserUseCase {
     const emailAlreadyExists = this.usersRepository.findByEmail(email);
 
     if (emailAlreadyExists) {
-      throw new Error("Email already exists!");
+      throw new AppError("Email already exists!", 400);
     }
 
     const user = this.usersRepository.create({ name, email });

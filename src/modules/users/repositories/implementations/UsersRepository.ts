@@ -35,12 +35,12 @@ class UsersRepository implements IUsersRepository {
   }
 
   findById(id: string): User | undefined {
-    const user = this.users.find(user => user.id === id);
+    const user = this.users.find(t => t.id === id);
     return user
   }
 
   findByEmail(email: string): User | undefined {
-    const user = this.users.find(user => user.email === email);
+    const user = this.users.find(t => t.email === email);
     return user
   }
 

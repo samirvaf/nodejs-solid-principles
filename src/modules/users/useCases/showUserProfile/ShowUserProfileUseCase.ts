@@ -1,3 +1,4 @@
+import { AppError } from "../../../../errors/AppError";
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -12,7 +13,7 @@ class ShowUserProfileUseCase {
     const user = this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new Error("User does not exists!")
+      throw new AppError("User does not exists!", 404)
     }
 
     return user;

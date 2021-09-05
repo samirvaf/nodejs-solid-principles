@@ -1,4 +1,5 @@
 import { User } from "../../model/User";
+import { AppError } from "../../../../errors/AppError";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
 interface IRequest {
@@ -11,8 +12,12 @@ class ListAllUsersUseCase {
   execute({ user_id }: IRequest): User[] {
     const user = this.usersRepository.findById(user_id)
 
-    if (!user.admin) {
-      throw new Error("User is not an admin!")
+    if (!user) {
+      throw new AppError("User does not exists", 400);
+    }
+
+    if (user.admin === false) {
+      throw new AppError("User is not an admin!", 400);
     }
     
     return this.usersRepository.list();
